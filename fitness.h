@@ -38,6 +38,6 @@ void weights_init(struct precalcs* weights);
 void weights_copy(struct precalcs* destination, struct precalcs* source);
 int weights_evaluate_state(struct precalcs* weights, struct board* instance, struct piece current, int col);
 int weights_select_better_state(struct precalcs* weights, struct board* instance, struct piece* current, int type);
-void weights_run_loop(struct precalcs* weights, struct data* pieces, int print);
+void weights_run_loop(struct precalcs* weights, struct data* pieces, int print, int verbose);
 
 #endif

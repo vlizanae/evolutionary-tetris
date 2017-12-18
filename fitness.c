@@ -204,26 +204,30 @@ int weights_select_better_state(struct precalcs* weights, struct board* instance
     return best_col;
 }
 
-void weights_run_loop(struct precalcs* weights, struct data* info, int print)
+void weights_run_loop(struct precalcs* weights, struct data* info, int print, int verbose)
 {
     // runs a whole game with a certain weight configuration
     // it also has the option of printing the final information like the board, the weights, etc.
     struct board instance;
     board_init(&instance, info->width, info->height);
     struct piece current;
-    int current_col, i;
+    int current_col, i, rem;
     for (i = 0; i < info->n_pieces; i++) {
         current_col = weights_select_better_state(weights, &instance, &current, info->pieces[i]);
         if (current_col == -1) {
             break;
         }
-        board_fixate_piece(&instance, current, current_col);
-        //board_print(&instance);
-        //board_print_heights(&instance);
+        rem = board_fixate_piece(&instance, current, current_col);
+        if (verbose) {
+            printf("Piece %d:\n", i+1);
+            board_print(&instance);
+            printf("removed lines: %d\n\n", rem);
+        }
     }
     weights->score = fitness_get_score(instance.fitness, weights, info->n_pieces - i);
     weights->valid = 1;
     if (print) {
+        printf("Final board:\n");
         board_print(&instance);
         printf("Score: %d\n", weights->score);
         printf("Removed lines: %d\n", instance.removed);

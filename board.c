@@ -179,7 +179,7 @@ void board_recalculate_fitness(struct board* self)
     self->fitness->column_transitions = fitness_get_all_column_transitions(self);
 }
 
-void board_fixate_piece(struct board* self, struct piece current, int col)
+int board_fixate_piece(struct board* self, struct piece current, int col)
 {
     // mechanic of dropping a piece and its implicances (remove rows if some are completed,
     // calculate and recalculate what is necesary)
@@ -190,7 +190,7 @@ void board_fixate_piece(struct board* self, struct piece current, int col)
     for (int i = row + current.height - 1; i >= row ; i--) {
         if (board_check_row(self, i)) {
             board_remove_row(self, i);
-            mod = 1;
+            mod++;
         }
     }
     if (mod) {
@@ -199,6 +199,7 @@ void board_fixate_piece(struct board* self, struct piece current, int col)
     }
     //board_print(self);
     //board_print_heights(self);
+    return mod;
 }
 
 void board_print(struct board* self)

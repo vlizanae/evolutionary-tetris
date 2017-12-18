@@ -112,7 +112,7 @@ void algorithm_get_scores(struct generation* self, struct data* info)
     // calculate the score of each individual
     for (int i = 0; i < POPSIZE; i++) {
         if (!self->population[i].valid) {
-            weights_run_loop(&self->population[i], info, 0);
+            weights_run_loop(&self->population[i], info, 0, 0);
         }
     }
 }

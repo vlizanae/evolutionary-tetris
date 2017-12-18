@@ -30,7 +30,7 @@ int board_check_row(struct board* instance, int row);
 void board_remove_row(struct board* instance, int row);
 void board_recalculate_heights(struct board* instance);
 void board_recalculate_fitness(struct board* instance);
-void board_fixate_piece(struct board* instance, struct piece current, int col);
+int board_fixate_piece(struct board* instance, struct piece current, int col);
 void board_print(struct board* instance);
 void board_print_heights(struct board* instance);
 

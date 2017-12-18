@@ -10,9 +10,13 @@
 
 int main(int argc, char **argv)
 {
+    int verbose = 0;
     if (argc < 2) {
         printf("Missing name of the instance\n");
         return 1;
+    }
+    if (argc == 3 && argv[2][0] == 'v') {
+        verbose = 1;
     }
     // setting undeterministic behaviour
     srand(time(0));
@@ -31,7 +35,7 @@ int main(int argc, char **argv)
     // solution extraction
     struct precalcs best;
     weights_copy(&best, individuals.best);
-    weights_run_loop(&best, &pieces, 1);
+    weights_run_loop(&best, &pieces, 1, verbose);
 
     // set the memory free
     generation_destruct(&individuals);
